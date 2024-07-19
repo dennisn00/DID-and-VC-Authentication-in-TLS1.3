@@ -175,7 +175,7 @@ class Client(CATestSubjectIF, DIDTestSubjectIF):
                 send_msg(ssl_connection, payload)
             for _ in range(num_of_msgs):
                 msg_len = struct.unpack('>I', recv_all(ssl_connection, 4))[0]
-                data = recv_all(ssl_connection, msg_len).decode()
+                recv_all(ssl_connection, msg_len).decode()
         finally:
             if ssl_connection.shutdown() == 0:
                 ssl_connection.shutdown()
