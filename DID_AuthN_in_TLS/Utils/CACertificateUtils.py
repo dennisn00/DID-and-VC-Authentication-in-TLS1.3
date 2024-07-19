@@ -31,11 +31,11 @@ class CATestSubjectIF(ABC):
     def test_ca(self, endpoint, iterations=1000, allow_resumption=False, chain_length=0,
                 use_ocsp_stapling=False, self_sign=False):
         """
-        Run multiple mTLS handshakes using CA-issued certificates and meaasure the performance
+        Run multiple mTLS handshakes using CA-issued certificates and measure the performance
         :param endpoint: Tuple consisting of Server IP-Address and Server Port, e.g. ('192.168.178.100', 50000)
         :param iterations: Number of handshakes to perform.
-        :param allow_resumption: If set to True, only the first handshake is a complete handshake. All following handshakes
-        are resumed using TLS Pre-Shared Keys, skipping peer authentication.
+        :param allow_resumption: If set to True, only the first handshake is a complete handshake.
+        All following handshakes are resumed using TLS Pre-Shared Keys, skipping peer authentication.
         :param chain_length: Number of intermediate certificates in the chain.
         :param use_ocsp_stapling: If True, OCSP Stapling is used. Requires OCSP Certificate and Secret key to
         be present at path specified above
@@ -54,8 +54,8 @@ class CAPerformanceResult:
     Server: Total handshake time starts when ClientHello is received, ends when Client Finished is verified.
     """
     total_handshake_time: float
-    handle_hello_time: float # time to handle the hello messages
-    cert_verify_time: float # time to verify the peer's certificate message
+    handle_hello_time: float  # time to handle the hello messages
+    cert_verify_time: float  # time to verify the peer's certificate message
     sent_cert_msg_size: int  # size of the certificate message sent in bytes
 
 
@@ -65,6 +65,7 @@ class CATimer:
     To work properly, the callbacks provided need to be passed to set_info_callback and set_message_callback, resp.
     See create_test_context() in this file as an example
     """
+
     def __init__(self):
         self.start_time_handshake = 0
         self.end_time_handshake = 0
@@ -106,7 +107,7 @@ class CATimer:
         """
         Callback for both peers to use to be notified of incoming and outgoing messages, for performance measurement.
         This needs to be passed to ctx.set_message_callback().
-        :param write: True if the message the triggered this call was written by the peer, False if message was received.
+        :param write: True if the message triggering this call was written by the peer, False if message was received.
         :param content_type: OpenSSL Code for Content Type (Application data, handshake message, ...).
         :param msg: The message sent/received
         """
@@ -236,7 +237,7 @@ def create_certificate_chain(chain_length, org_name, common_name, agent_skey: ed
                              self_sign=False) -> list[Certificate]:
     """
     Creates a certificate chain of variable length for an entity up to the standard root CA
-    :param chain_length: Number of intermediate certificates. Root and entity certificate are not included in this count.
+    :param chain_length: Number of intermediate certificates. Root and entity certificate are not included in this.
     Set to zero if no intermediate certificates should be used.
     :param org_name: Organisation Name for x509 Name
     :param common_name: Common Name for x509 Name
@@ -363,7 +364,8 @@ def create_test_context(method: int, allow_resumption, chain_length, skey: ed255
                         org_name, common_name, is_client, ca_timer: CATimer, self_sign=False) -> SSL.Context:
     """
     Creates an SSL Context for testing.
-    :param method: OpenSSL Method Code to indicate whether subject is client (SSL.TLS_CLIENT_METHOD) or server (SSL.TLS_SERVER_METHOD).
+    :param method: OpenSSL Method Code to indicate whether subject is client (SSL.TLS_CLIENT_METHOD) or
+    server (SSL.TLS_SERVER_METHOD).
     :param allow_resumption: If True, peers try to resume session after an initial, full handshake. Speeds up connection
     as authentication only needs to be performed once.
     :param chain_length: Number of intermediate certificates to be used by this peer

@@ -13,7 +13,7 @@ from Verifier import Verifier
 class Agent:
     """
     This class holds all information for a single actor in the ecosystem.
-    It can be used to create an associated client, server, verifier, holder and issuer with all connected functionalities.
+    It can be used to create an associated client, server, verifier, holder or issuer with all connected functionalities
     """
 
     def __init__(self, did, private_key: Ed25519PrivateKey, common_name,

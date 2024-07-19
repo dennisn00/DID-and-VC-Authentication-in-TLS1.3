@@ -62,7 +62,6 @@ class Client(CATestSubjectIF, DIDTestSubjectIF):
         self.did_timer = DIDTimer()
         self.ca_timer = CATimer()
 
-
     def test_did(self, endpoint, iterations=1000, resumption=False, resolver=Resolver.CacheResolver,
                  handshake_only=True,
                  vp_exchange_cb=None, handshake_done_cb=None):
