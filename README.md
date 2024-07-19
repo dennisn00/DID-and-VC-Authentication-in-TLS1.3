@@ -52,3 +52,9 @@ the file name `<pool_name>.txn`. When starting the IndyCliResolver, user `<pool_
 #### Cache Resolver
 The Cache Resolver uses a local file to simulate caching. For this, you can use `secrets.json`, and replace
 the DIDs, verkeys and skeys with your keys and DIDs. Instead of "skey", "seed" can be used.
+
+## Run a Test
+The files `test_server.py` and `test_client.py` show how to initialize agents and prepare them for the TLS handshake.
+You can test it by running first the server and then, in a separate terminal, the client. 
+This will execute 10 TLS handshakes using DID certificates, each followed by a short VC exchange (one VC per direction).
+When the program exits successfully, it returns (and prints) a list of Performance Results, listing runtimes for each iteration.
